@@ -28,6 +28,7 @@ cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
 @daeuniverse $FEED/packages/$DISTRIB_ARCH/packages.adb
 EOF
 apk update
+
 ```
 ###添加 dae 官方软件源（官方 OpenWrt，多一行内核 BTF 源）
 ```
@@ -39,6 +40,7 @@ cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
 @daeuniverse $FEED/kmods/$DISTRIB_RELEASE/$DISTRIB_TARGET/packages.adb
 EOF
 apk update
+
 ```
 ###安装 honk 与 LuCI 界面
 ```
