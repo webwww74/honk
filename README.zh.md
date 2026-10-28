@@ -19,7 +19,35 @@ honk 是用 Rust 编写的实验性 Linux 透明代理引擎。其 eBPF 数据�
 已实现不等于完成 review，见 [Review 状态](#review-状态)。不提供 FakeIP 引擎、完整 mihomo 兼容性或 Windows/macOS 数据面。
 
 ## 开始使用
-
+###添加 dae 官方软件源（ImmortalWrt）
+```
+wget -O /etc/apk/keys/daeuniverse.pem https://openwrt.daeuniverse.org/public-key.pem
+. /etc/openwrt_release
+FEED=https://openwrt.daeuniverse.org/${DISTRIB_RELEASE%.*}
+cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
+@daeuniverse $FEED/packages/$DISTRIB_ARCH/packages.adb
+EOF
+apk update
+```
+###添加 dae 官方软件源（官方 OpenWrt，多一行内核 BTF 源）
+```
+wget -O /etc/apk/keys/daeuniverse.pem https://openwrt.daeuniverse.org/public-key.pem
+. /etc/openwrt_release
+FEED=https://openwrt.daeuniverse.org/${DISTRIB_RELEASE%.*}
+cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
+@daeuniverse $FEED/packages/$DISTRIB_ARCH/packages.adb
+@daeuniverse $FEED/kmods/$DISTRIB_RELEASE/$DISTRIB_TARGET/packages.adb
+EOF
+apk update
+```
+###安装 honk 与 LuCI 界面
+```
+apk add honk@daeuniverse luci-app-honk@daeuniverse luci-i18n-daeuniverse-zh-cn@daeuniverse
+```
+###doona 面板地址（首次打开创建管理员）
+```
+http://路由器IP:9090/ui/
+```
 真实透明代理需要 **root、Linux 6.12+、所需内核选项和 bpffs**。首次部署会修改网络 hook、命名空间和 sysctl；须保留带外管理通道。
 
 1. 按[启动指南](doc/zh/how-to-start.md)检查内核、安装程序、准备 direct-only 配置并验证连通性。
