@@ -40,6 +40,16 @@ cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
 @daeuniverse $FEED/kmods/$DISTRIB_RELEASE/$DISTRIB_TARGET/packages.adb
 EOF
 apk update
+```
+```
+wget -O /etc/apk/keys/daeuniverse.pem https://openwrt.daeuniverse.org/public-key.pem
+. /etc/openwrt_release
+FEED=https://openwrt.daeuniverse.org/25.12
+cat > /etc/apk/repositories.d/daeuniverse.list <<EOF
+@daeuniverse $FEED/packages/$DISTRIB_ARCH/packages.adb
+@daeuniverse $FEED/kmods/25.12.6/$DISTRIB_TARGET/packages.adb
+EOF
+apk update
 
 ```
 ###安装 honk 与 LuCI 界面
